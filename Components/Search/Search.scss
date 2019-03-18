@@ -1,0 +1,54 @@
+.Search {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Search__input {
+    width: 500px;
+    max-width: 90%;
+    margin: 40px auto 10px;
+    padding: 20px;
+    font-size: 20px;
+    text-transform: uppercase;
+    background-color: #232931;
+    color: #eeeeee;
+    border: 0;
+    border-bottom: 2px solid #4ecca3;
+}
+.Search__input:focus {
+    outline: 1px solid #4ecca3;
+    outline: none;
+}
+
+.Search__list {
+    width: 500px;
+    max-width: 90%;
+    margin: 10px auto;
+    font-size: 18px;
+}
+
+.Search__elem {
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.Search__movieTitle {
+    color: #eeeeee;
+    align-self: center;
+    flex-grow: 1;
+}
+
+.Search__prodYear {
+    color: #4ecca3;
+    align-self: center;
+}
+
+.Search__movieImg {
+    padding-right: 20px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
