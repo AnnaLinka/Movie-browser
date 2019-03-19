@@ -145,6 +145,225 @@ exports.default = App;
 
 /***/ }),
 
+/***/ "./Components/MovieCard/MovieCard.jsx":
+/*!********************************************!*\
+  !*** ./Components/MovieCard/MovieCard.jsx ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/react.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(/*! ./MovieCard.scss */ "./Components/MovieCard/MovieCard.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var MovieCard = function (_React$Component) {
+    _inherits(MovieCard, _React$Component);
+
+    function MovieCard(props) {
+        _classCallCheck(this, MovieCard);
+
+        var _this = _possibleConstructorReturn(this, (MovieCard.__proto__ || Object.getPrototypeOf(MovieCard)).call(this, props));
+
+        _this.state = {
+            movieData: null
+        };
+        return _this;
+    }
+
+    _createClass(MovieCard, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            var movieId = this.props.id;
+            var apiKey = "108459b0ab9ad26f10f6e031ebb6ac28";
+            var url = 'https://api.themoviedb.org/3/movie/' + movieId + '?api_key=' + apiKey + '&language=en-US';
+
+            console.log(movieId);
+
+            fetch(url).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log(data);
+                _this2.setState({
+                    movieData: data
+                });
+            }).catch(function () {
+                console.log("error");
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            // const string = this.state.movieData.release_date;
+            if (this.state.movieData == null) {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    'i\'m loading'
+                );
+            } else {
+                return _react2.default.createElement(
+                    'section',
+                    { className: 'MovieCard__wrapper' },
+                    _react2.default.createElement(
+                        'header',
+                        { className: 'MovieCard__header' },
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'MovieCard__title' },
+                            this.state.movieData.title
+                        ),
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'MovieCard__year' },
+                            this.state.movieData.release_date.substring(0, 4)
+                        )
+                    ),
+                    _react2.default.createElement('img', { className: 'MovieCard__img', src: 'https://image.tmdb.org/t/p/w500' + this.state.movieData.poster_path, alt: '' }),
+                    _react2.default.createElement(
+                        'main',
+                        { className: 'MovieCard__main' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'MovieCard__info' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'MovieCard__infoBlock' },
+                                _react2.default.createElement(
+                                    'span',
+                                    { className: 'MovieCard__infoLabel' },
+                                    'Genre'
+                                ),
+                                _react2.default.createElement(
+                                    'span',
+                                    { className: 'MovieCard__infoText' },
+                                    this.state.movieData.genres[0].name
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'MovieCard__infoBlock' },
+                                _react2.default.createElement(
+                                    'span',
+                                    { className: 'MovieCard__infoLabel MovieCard__infoLabel--right' },
+                                    'Rate'
+                                ),
+                                _react2.default.createElement(
+                                    'span',
+                                    { className: 'MovieCard__infoText MovieCard__infoText--right' },
+                                    this.state.movieData.vote_average
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'MovieCard__quote' },
+                            this.state.movieData.tagline
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'MovieCard__infoData' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'MovieCard__infoBlock' },
+                                _react2.default.createElement(
+                                    'span',
+                                    { className: 'MovieCard__infoLabel' },
+                                    'Language'
+                                ),
+                                _react2.default.createElement(
+                                    'span',
+                                    { className: 'MovieCard__infoText' },
+                                    this.state.movieData.original_language
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'MovieCard__infoBlock' },
+                                _react2.default.createElement(
+                                    'span',
+                                    { className: 'MovieCard__infoLabel MovieCard__infoLabel--right' },
+                                    'Production'
+                                ),
+                                _react2.default.createElement(
+                                    'span',
+                                    { className: 'MovieCard__infoText MovieCard__infoText--right' },
+                                    this.state.movieData.production_countries[0].name
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'MovieCard__desc' },
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                this.state.movieData.overview
+                            )
+                        )
+                    )
+                );
+            }
+        }
+    }]);
+
+    return MovieCard;
+}(_react2.default.Component);
+
+exports.default = MovieCard;
+
+/***/ }),
+
+/***/ "./Components/MovieCard/MovieCard.scss":
+/*!*********************************************!*\
+  !*** ./Components/MovieCard/MovieCard.scss ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/cjs.js!../../node_modules/sass-loader/lib/loader.js!./MovieCard.scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./Components/MovieCard/MovieCard.scss");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./Components/Search/Search.jsx":
 /*!**************************************!*\
   !*** ./Components/Search/Search.jsx ***!
@@ -166,6 +385,10 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/react.js");
 var _react2 = _interopRequireDefault(_react);
 
 __webpack_require__(/*! ./Search.scss */ "./Components/Search/Search.scss");
+
+var _MovieCard = __webpack_require__(/*! ../MovieCard/MovieCard.jsx */ "./Components/MovieCard/MovieCard.jsx");
+
+var _MovieCard2 = _interopRequireDefault(_MovieCard);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -196,47 +419,52 @@ var Search = function (_React$Component) {
             fetch(url).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log(data.results);
                 _this.setState({
                     moviesArray: data.results
-                    // title: data.results[0].title
                 });
+            });
+        };
+
+        _this.showMovie = function (id) {
+            var list = document.querySelector('.Search__list');
+            list.style.display = "none";
+            _this.setState({
+                movieId: id
             });
         };
 
         _this.state = {
             text: "",
             title: "",
-            moviesArray: []
-        };
+            moviesArray: [],
+            movieId: null };
         return _this;
     }
 
+    // getFocus = () => {           
+    //     document.getElementById("Search__input").focus();
+    // }
+
+    // componentDidMount() { //tu może być już wartośc poczatkowa z getData
+    //     // let movieTitle = this.state.text;
+    //     let movieTitle = "Pulp Fic";
+    //     const apiKey = "108459b0ab9ad26f10f6e031ebb6ac28";
+    //     let url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${movieTitle}&page=1&include_adult=false`
+    //     fetch(url)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log(data.results)
+    //         this.setState({
+    //             moviesArray: data.results,
+    //             // title: data.results[0].title
+    //         })
+    //     })
+    // }
+
     _createClass(Search, [{
         key: 'render',
-
-
-        // getFocus = () => {           
-        //     document.getElementById("Search__input").focus();
-        // }
-
-        // componentDidMount() { //tu może być już wartośc poczatkowa z getData
-        //     // let movieTitle = this.state.text;
-        //     let movieTitle = "Pulp Fic";
-        //     const apiKey = "108459b0ab9ad26f10f6e031ebb6ac28";
-        //     let url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${movieTitle}&page=1&include_adult=false`
-        //     fetch(url)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log(data.results)
-        //         this.setState({
-        //             moviesArray: data.results,
-        //             // title: data.results[0].title
-        //         })
-        //     })
-        // }
-
         value: function render() {
+            var _this2 = this;
 
             return _react2.default.createElement(
                 'div',
@@ -245,11 +473,13 @@ var Search = function (_React$Component) {
                 _react2.default.createElement(
                     'ul',
                     { className: 'Search__list' },
-                    this.state.moviesArray.map(function (elem, key) {
+                    this.state.moviesArray.map(function (elem, index) {
                         return _react2.default.createElement(
                             'li',
-                            { className: 'Search__elem', key: elem.id },
-                            _react2.default.createElement('img', { className: 'Search__movieImg', src: '{elem.poster_path}' }),
+                            { className: 'Search__elem', key: elem.id, onClick: function onClick() {
+                                    return _this2.showMovie(elem.id);
+                                } },
+                            _react2.default.createElement('img', { className: 'Search__movieImg', src: 'https://image.tmdb.org/t/p/w500' + elem.poster_path }),
                             _react2.default.createElement(
                                 'span',
                                 { className: 'Search__movieTitle' },
@@ -264,7 +494,8 @@ var Search = function (_React$Component) {
                             )
                         );
                     })
-                )
+                ),
+                this.state.movieId != null ? _react2.default.createElement(_MovieCard2.default, { id: this.state.movieId }) : null
             );
         }
     }]);
@@ -1282,6 +1513,21 @@ module.exports = factory;
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./Components/MovieCard/MovieCard.scss":
+/*!****************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./Components/MovieCard/MovieCard.scss ***!
+  \****************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, "/* Colors */\n.MovieCard__wrapper {\n  margin: 0 auto;\n  max-width: 90%; }\n\n.MovieCard__header, .MovieCard__info {\n  display: flex;\n  justify-content: space-between;\n  padding: 15px 0; }\n\n.MovieCard__title {\n  text-transform: uppercase;\n  font-weight: 700;\n  font-size: 22px; }\n\n.MovieCard__year {\n  color: #4ecca3;\n  font-size: 20px; }\n\n.MovieCard__img {\n  max-width: 100%;\n  height: auto; }\n\n.MovieCard__infoData {\n  display: flex;\n  justify-content: space-between; }\n\n.MovieCard__infoBlock {\n  display: flex;\n  flex-direction: column; }\n\n.MovieCard__infoText {\n  color: #4ecca3;\n  font-weight: 700; }\n  .MovieCard__infoText--right {\n    text-align: right; }\n\n.MovieCard__infoLabel {\n  font-size: 12px;\n  font-weight: 300; }\n  .MovieCard__infoLabel--right {\n    text-align: right; }\n\n.MovieCard__quote {\n  color: #4ecca3;\n  font-weight: 300;\n  text-align: center;\n  font-style: italic;\n  margin: 30px 0; }\n\n.MovieCard__desc {\n  text-align: justify;\n  padding: 15px;\n  background-color: #393E46;\n  margin: 30px 0; }\n", ""]);
+
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./Components/Search/Search.scss":
 /*!**********************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./Components/Search/Search.scss ***!
@@ -1291,7 +1537,7 @@ module.exports = factory;
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".Search {\n  display: flex;\n  flex-direction: column;\n  justify-content: center; }\n\n.Search__input {\n  width: 500px;\n  max-width: 90%;\n  margin: 40px auto 10px;\n  padding: 20px;\n  font-size: 20px;\n  text-transform: uppercase;\n  background-color: #232931;\n  color: #eeeeee;\n  border: 0;\n  border-bottom: 2px solid #4ecca3; }\n\n.Search__input:focus {\n  outline: 1px solid #4ecca3;\n  outline: none; }\n\n.Search__list {\n  width: 500px;\n  max-width: 90%;\n  margin: 10px auto;\n  font-size: 18px; }\n\n.Search__elem {\n  padding: 15px 0;\n  display: flex;\n  justify-content: space-between;\n  cursor: pointer; }\n\n.Search__movieTitle {\n  color: #eeeeee;\n  align-self: center;\n  flex-grow: 1; }\n\n.Search__prodYear {\n  color: #4ecca3;\n  align-self: center; }\n\n.Search__movieImg {\n  padding-right: 20px;\n  min-width: 100px;\n  max-width: 100px; }\n", ""]);
+exports.push([module.i, "/* Colors */\n.Search {\n  display: flex;\n  flex-direction: column;\n  justify-content: center; }\n\n.Search__input {\n  width: 500px;\n  max-width: 90%;\n  margin: 30px auto 10px;\n  padding: 10px;\n  font-size: 20px;\n  text-transform: uppercase;\n  background-color: #232931;\n  color: #eeeeee;\n  border: 0;\n  border-bottom: 2px solid #4ecca3; }\n\n.Search__input:focus {\n  outline: none; }\n\n.Search__list {\n  width: 500px;\n  max-width: 90%;\n  margin: -10px auto 10px;\n  font-size: 18px;\n  background-color: #393E46;\n  padding: 10px; }\n\n.Search__elem {\n  padding: 0 0 15px;\n  display: flex;\n  justify-content: space-between;\n  cursor: pointer; }\n\n.Search__movieTitle {\n  color: #eeeeee;\n  align-self: center;\n  flex-grow: 1; }\n\n.Search__prodYear {\n  color: #4ecca3;\n  align-self: center; }\n\n.Search__movieImg {\n  padding-right: 20px;\n  width: 80px;\n  height: 100%; }\n", ""]);
 
 
 
@@ -1306,7 +1552,7 @@ exports.push([module.i, ".Search {\n  display: flex;\n  flex-direction: column;\
 
 exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "html {\n  box-sizing: border-box;\n  font-size: 16px;\n  font-family: 'Montserrat', sans-serif; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nbody {\n  background-color: #232931; }\n\nbody, h1, h2, h3, h4, h5, h6, p, ol, ul {\n  margin: 0;\n  padding: 0;\n  font-weight: normal; }\n\nol, ul {\n  list-style: none; }\n\nimg {\n  max-width: 100%;\n  height: auto; }\n\n/* Colors */\n", ""]);
+exports.push([module.i, "html {\n  box-sizing: border-box;\n  font-size: 16px;\n  font-family: 'Montserrat', sans-serif; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nbody {\n  background-color: #232931;\n  color: white; }\n\nbody, h1, h2, h3, h4, h5, h6, p, ol, ul {\n  margin: 0;\n  padding: 0;\n  font-weight: normal; }\n\nol, ul {\n  list-style: none; }\n\nimg {\n  max-width: 100%;\n  height: auto; }\n\n/* Colors */\n", ""]);
 
 
 

@@ -5,16 +5,16 @@ class MovieCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            movieData: ""
+            movieData: null
         }
     }    
 
     componentDidMount() {
-        let movieId = 680;
+        let movieId = this.props.id;
         const apiKey = "108459b0ab9ad26f10f6e031ebb6ac28";    
         const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US`
         
-        console.log() 
+        console.log(movieId);
 
         fetch(url)
         .then(response => response.json())
@@ -29,28 +29,50 @@ class MovieCard extends React.Component {
     }
 
     render() {
-
-        return (
-            <section className="MovieCard__wrapper">
-                <header className="Moviecard__header">
-                    <span className="MovieCard__title">{this.state.movieData.title}</span>
-                    <span className="MovieCard__year">{this.state.movieData.release_date}</span>
-                </header>
-                <img className="MovieCard__img" src="{this.state.movieData.poster_path}" alt=""/>
-                <main className="MovieCard__main">
-                    <div className="MovieCard__info">
-                        <span className="MovieCard__infoText">thriller</span>
-                        <span className="MovieCard__infoText">usa</span>
-                    </div>
-                    <div className="MovieCard__quote">{this.state.movieData.tagline}</div>
-                    <div className="MovieCard__info">
-                        <span className="MovieCard__infoText">{this.state.movieData.original_language}</span>
-                        <span className="MovieCard__infoText">{this.state.movieData.vote_average}</span>
-                    </div>
-                    <div className="MovieCard__desc">{this.state.movieData.overview}</div>
-                </main>              
-            </section>
-        )
+        // const string = this.state.movieData.release_date;
+        if (this.state.movieData == null) {
+            return (
+                <div>i'm loading</div>
+            )
+        } else {
+            return (
+                <section className="MovieCard__wrapper">
+                    <header className="MovieCard__header">
+                        <span className="MovieCard__title">{this.state.movieData.title}</span>
+                        <span className="MovieCard__year">{this.state.movieData.release_date.substring(0, 4)}</span>
+                    </header> 
+                    <img className="MovieCard__img" src={`https://image.tmdb.org/t/p/w500${this.state.movieData.poster_path}`} alt=""/>
+                    <main className="MovieCard__main">
+                        <div className="MovieCard__info">
+                            <div className="MovieCard__infoBlock">
+                                <span className="MovieCard__infoLabel">Genre</span>
+                                <span className="MovieCard__infoText">{this.state.movieData.genres[0].name}</span>
+                            </div>
+                            <div className="MovieCard__infoBlock">
+                                <span className="MovieCard__infoLabel MovieCard__infoLabel--right">Rate</span>
+                                <span className="MovieCard__infoText MovieCard__infoText--right">{this.state.movieData.vote_average}</span>
+                            </div>
+                        </div>
+                        <div className="MovieCard__quote">{this.state.movieData.tagline}</div>
+                        
+                        <div className="MovieCard__infoData">
+                            <div className="MovieCard__infoBlock">
+                                <span className="MovieCard__infoLabel">Language</span>
+                                <span className="MovieCard__infoText">{this.state.movieData.original_language}</span>
+                            </div>
+                            <div className="MovieCard__infoBlock">
+                                <span className="MovieCard__infoLabel MovieCard__infoLabel--right">Production</span>
+                                <span className="MovieCard__infoText MovieCard__infoText--right">{this.state.movieData.production_countries[0].name}</span>
+                            </div>
+                        </div>                        
+                        <div className="MovieCard__desc">
+                            <p>{this.state.movieData.overview}</p>
+                        </div>
+                    </main>              
+                </section>
+            )
+        }
+        
     }
 }   
 

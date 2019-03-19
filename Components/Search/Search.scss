@@ -1,3 +1,5 @@
+@import '../../scss/variables';
+
 .Search {
     display: flex;
     flex-direction: column;
@@ -7,48 +9,50 @@
 .Search__input {
     width: 500px;
     max-width: 90%;
-    margin: 40px auto 10px;
-    padding: 20px;
+    margin: 30px auto 10px;
+    padding: 10px;
     font-size: 20px;
     text-transform: uppercase;
-    background-color: #232931;
-    color: #eeeeee;
+    background-color: $primary;
+    color: $main-text;
     border: 0;
-    border-bottom: 2px solid #4ecca3;
+    border-bottom: 2px solid $accent;
 }
 .Search__input:focus {
-    outline: 1px solid #4ecca3;
+    // outline: 1px solid $accent;
     outline: none;
 }
 
 .Search__list {
     width: 500px;
     max-width: 90%;
-    margin: 10px auto;
+    margin: -10px auto 10px;
     font-size: 18px;
+    background-color: $secondary;
+    padding: 10px;
 }
 
 .Search__elem {
-    padding: 15px 0;
+    padding: 0 0 15px;
     display: flex;
     justify-content: space-between;
     cursor: pointer;
 }
 
 .Search__movieTitle {
-    color: #eeeeee;
+    color: $main-text;
     align-self: center;
     flex-grow: 1;
 }
 
 .Search__prodYear {
-    color: #4ecca3;
+    color: $accent;
     align-self: center;
 }
 
 .Search__movieImg {
     padding-right: 20px;
-    min-width: 100px;
-    max-width: 100px;
+    width: 80px;
+    height: 100%;
 }
 

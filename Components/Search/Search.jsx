@@ -54,12 +54,8 @@ class Search extends React.Component {
     showMovie = (id) => {
         const list = document.querySelector('.Search__list');
         list.style.display="none";
-        console.log(id)
-        // let movieInfo = movieArray.results.map((element) => {
-        //     return element })
         this.setState({
             movieId: id,
-            // movieArray: movieInfo
         })
     }
 
@@ -68,20 +64,18 @@ class Search extends React.Component {
         return (
             <div className="Search">
                 <input className="Search__input" value={this.state.text} autoFocus="true" onChange={this.handle} type="text"/>
-                {/* <h1>{this.state.text}</h1> */}
                 <ul className="Search__list">
                     {this.state.moviesArray.map((elem, index) => {
                         return (
                             <li className="Search__elem" key={elem.id} onClick={ ()=> this.showMovie(elem.id)} >
-                                <img className="Search__movieImg" src="{elem.poster_path}" />
+                                <img className="Search__movieImg" src={`https://image.tmdb.org/t/p/w500${elem.poster_path}`} />
                                 <span className="Search__movieTitle"> {elem.title}</span>
                                 <span className="Search__prodYear"> {elem.release_date.slice(0, 4)}</span>
                             </li>
                         )
                     })}
-                    {/* {this.state.movieId != null ? <span>aaa</span> : null}                         */}
                 </ul>
-                {this.state.movieId != null ? <MovieCard /> : null}                        
+                {this.state.movieId != null ? <MovieCard id={this.state.movieId}/> : null}    
             </div>
         )
     }
