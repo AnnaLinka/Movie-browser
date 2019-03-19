@@ -1,5 +1,6 @@
 import React from 'react';
 import './Search.scss'
+import MovieCard from '../MovieCard/MovieCard.jsx';
 
 class Search extends React.Component {
     constructor(props) {
@@ -7,8 +8,8 @@ class Search extends React.Component {
         this.state = {
             text: "",
             title: "",
-            moviesArray: []
-        }
+            moviesArray: [],
+            movieId: null        }
     }
 
     handle = (e) => {
@@ -24,10 +25,8 @@ class Search extends React.Component {
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            console.log(data.results)
             this.setState({
                 moviesArray: data.results,
-                // title: data.results[0].title
             })
         })
     }
@@ -52,6 +51,18 @@ class Search extends React.Component {
     //     })
     // }
 
+    showMovie = (id) => {
+        const list = document.querySelector('.Search__list');
+        list.style.display="none";
+        console.log(id)
+        // let movieInfo = movieArray.results.map((element) => {
+        //     return element })
+        this.setState({
+            movieId: id,
+            // movieArray: movieInfo
+        })
+    }
+
     render() {
 
         return (
@@ -59,16 +70,18 @@ class Search extends React.Component {
                 <input className="Search__input" value={this.state.text} autoFocus="true" onChange={this.handle} type="text"/>
                 {/* <h1>{this.state.text}</h1> */}
                 <ul className="Search__list">
-                    {this.state.moviesArray.map((elem, key) => {
+                    {this.state.moviesArray.map((elem, index) => {
                         return (
-                            <li className="Search__elem" key={elem.id}>
+                            <li className="Search__elem" key={elem.id} onClick={ ()=> this.showMovie(elem.id)} >
                                 <img className="Search__movieImg" src="{elem.poster_path}" />
                                 <span className="Search__movieTitle"> {elem.title}</span>
                                 <span className="Search__prodYear"> {elem.release_date.slice(0, 4)}</span>
                             </li>
                         )
                     })}
+                    {/* {this.state.movieId != null ? <span>aaa</span> : null}                         */}
                 </ul>
+                {this.state.movieId != null ? <MovieCard /> : null}                        
             </div>
         )
     }
