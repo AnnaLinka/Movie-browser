@@ -1,6 +1,7 @@
 import React from 'react';
 import './Search.scss'
 import MovieCard from '../MovieCard/MovieCard.jsx';
+import Discover from '../Discover/Discover.jsx';
 
 class Search extends React.Component {
     constructor(props) {
@@ -9,7 +10,8 @@ class Search extends React.Component {
             text: "",
             title: "",
             moviesArray: [],
-            movieId: null        }
+            movieId: null   
+        }
     }
 
     handle = (e) => {
@@ -31,51 +33,41 @@ class Search extends React.Component {
         })
     }
 
-    // getFocus = () => {           
-    //     document.getElementById("Search__input").focus();
-    // }
-
-    // componentDidMount() { //tu może być już wartośc poczatkowa z getData
-    //     // let movieTitle = this.state.text;
-    //     let movieTitle = "Pulp Fic";
-    //     const apiKey = "108459b0ab9ad26f10f6e031ebb6ac28";
-    //     let url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${movieTitle}&page=1&include_adult=false`
-    //     fetch(url)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log(data.results)
-    //         this.setState({
-    //             moviesArray: data.results,
-    //             // title: data.results[0].title
-    //         })
-    //     })
-    // }
-
     showMovie = (id) => {
-        const list = document.querySelector('.Search__list');
-        list.style.display="none";
-        this.setState({
+        this.setState ({
             movieId: id,
+            moviesArray: []
+        })
+    }
+
+    close = () => {
+        document.querySelector('.Search__input').focus();
+        this.setState({
+            text: ""
         })
     }
 
     render() {
-
         return (
             <div className="Search">
-                <input className="Search__input" value={this.state.text} autoFocus="true" onChange={this.handle} type="text"/>
-                <ul className="Search__list">
-                    {this.state.moviesArray.map((elem, index) => {
-                        return (
-                            <li className="Search__elem" key={elem.id} onClick={ ()=> this.showMovie(elem.id)} >
-                                <img className="Search__movieImg" src={`https://image.tmdb.org/t/p/w500${elem.poster_path}`} />
-                                <span className="Search__movieTitle"> {elem.title}</span>
-                                <span className="Search__prodYear"> {elem.release_date.slice(0, 4)}</span>
-                            </li>
-                        )
-                    })}
-                </ul>
-                {this.state.movieId != null ? <MovieCard id={this.state.movieId}/> : null}    
+                <div className="Search__wrapper">
+                    <div className="Search__inputWrapper">
+                        <input className="Search__input" value={this.state.text} autoFocus="true" onChange={this.handle} onClick={this.focusSearch} type="text"/>
+                        <figure  className="Search__closeIcon" onClick={this.close}>X</figure>
+                    </div>
+                        <ul className="Search__list" style={{display:this.state.listVisibility}}>
+                        {this.state.moviesArray.map((elem, index) => {
+                                return (
+                                    <li className="Search__elem" key={elem.id} onClick={ ()=> this.showMovie(elem.id)} >
+                                        <img className="Search__movieImg" src={`https://image.tmdb.org/t/p/w500${elem.poster_path}`} />
+                                        <span className="Search__movieTitle"> {elem.title}</span>
+                                        <span className="Search__prodYear"> {elem.release_date.slice(0, 4)}</span>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    </div>                
+                {this.state.movieId != null ? <MovieCard id={this.state.movieId}/> : <Discover />}  
             </div>
         )
     }

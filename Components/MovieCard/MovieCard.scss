@@ -6,6 +6,17 @@
         margin: 0 auto;
         max-width: 90%;
     }
+
+    &__loaderWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__loader {
+        width: 200px;
+        height: auto;
+    }
     
     &__header,
     &__info {

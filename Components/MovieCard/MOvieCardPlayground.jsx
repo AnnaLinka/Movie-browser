@@ -6,7 +6,7 @@ class MovieCard extends React.Component {
         super(props);
         this.state = {
             movieData: null,
-            dynamic: this.props.id
+            dynamic: this.props.id //stan przypisany by pozniej uzyc w funkcji getDervedState
         }
     }   
     
@@ -14,29 +14,37 @@ class MovieCard extends React.Component {
         let movieId = this.props.id;
         const apiKey = "108459b0ab9ad26f10f6e031ebb6ac28";    
         const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US`
-   
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-                this.setState({
-                    movieData: data
-                })
-        }).catch(() => {
-            console.log("error");
-        });        
+        
+        console.log(movieId);
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data) 
+                // this.state.movieData == data ? null :
+                    this.setState({
+                        movieData: data
+                    })
+            }).catch(() => {
+                console.log("error");
+            });        
     }
 
     componentDidMount() {
         this.getData();
     }
     
-    static getDerivedStateFromProps(nextProps, prevState) { 
-        if (nextProps.id !== prevState.dynamic) { 
-            return { dynamic: nextProps.id }; 
+    static getDerivedStateFromProps(nextProps, prevState) { //jak nadpisać state po porpsach 
+        if (nextProps.id !== prevState.dynamic) { // !ważne nowe propsy przychodzą i są rózne od stanu
+            return { dynamic: nextProps.id }; //dynamicznie odmieniony stan (wczesniej musi być wyciagniety)
         } else return null;
     }
-    componentDidUpdate(prevProps, prevState) { 
-        prevProps.id !== this.props.id ? this.getData() : null; 
+
+    //!! Do zmiany
+    componentDidUpdate(prevProps, prevState) { //po derivedState ponownie update
+        console.log(prevProps.id, this.state.dynamic, prevState.dynamic)
+        prevProps.id !== this.props.id ? this.getData() : null; //wersja loop po 2 wybraniu i klik
+        // prevProps.id !== prevState.dynamic ? this.getData() : null; //wersja loop po 2 wybraniu i klik
+        // this.state.dynamic !== prevState.dynamic ? this.getData() : null; //bez loop, ale nie działa
     }
 
     render() {

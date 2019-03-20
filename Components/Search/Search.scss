@@ -1,58 +1,82 @@
 @import '../../scss/variables';
 
-.Search {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.Search { 
+
+    &__wrapper {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    &__inputWrapper {
+        display: flex;
+        position: relative;
+    }
+
+    &__input {
+        width: 500px;
+        max-width: 90%;
+        margin: 30px auto 10px;
+        padding: 10px;
+        font-size: 20px;
+        text-transform: uppercase;
+        background-color: $primary;
+        color: $main-text;
+        border: 0;
+        border-bottom: 2px solid $accent;
+    }
+    
+    &__input:focus {
+        // outline: 1px solid $accent;
+        outline: none;
+    }
+    
+    &__closeIcon {
+        position: absolute;
+        right: -20px;
+        cursor: pointer;
+        z-index: 10;
+        bottom: -10px;
+        padding: 10px;
+        font-size: 20px;
+    }
+    
+    &__list {
+        position: absolute;
+        top: 75px;
+        width: 500px;
+        font-size: 18px;
+        background-color: $secondary;
+        padding: 10px;
+        align-self: center;
+        z-index: 10;
+    }
+    
+    &__elem {
+        padding: 0 0 15px;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+    
+    &__movieTitle {
+        color: $main-text;
+        align-self: center;
+        flex-grow: 1;
+    }
+    
+    &__prodYear {
+        color: $accent;
+        align-self: center;
+    }
+    
+    &__movieImg {
+        padding-right: 20px;
+        width: 80px;
+        height: 100%;
+    }
 }
 
-.Search__input {
-    width: 500px;
-    max-width: 90%;
-    margin: 30px auto 10px;
-    padding: 10px;
-    font-size: 20px;
-    text-transform: uppercase;
-    background-color: $primary;
-    color: $main-text;
-    border: 0;
-    border-bottom: 2px solid $accent;
-}
-.Search__input:focus {
-    // outline: 1px solid $accent;
-    outline: none;
-}
 
-.Search__list {
-    width: 500px;
-    max-width: 90%;
-    margin: -10px auto 10px;
-    font-size: 18px;
-    background-color: $secondary;
-    padding: 10px;
-}
-
-.Search__elem {
-    padding: 0 0 15px;
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-}
-
-.Search__movieTitle {
-    color: $main-text;
-    align-self: center;
-    flex-grow: 1;
-}
-
-.Search__prodYear {
-    color: $accent;
-    align-self: center;
-}
-
-.Search__movieImg {
-    padding-right: 20px;
-    width: 80px;
-    height: 100%;
-}
 
