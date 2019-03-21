@@ -60,7 +60,7 @@ class MovieCard extends React.Component {
                             </div>
                             <div className="MovieCard__infoBlock">
                                 <span className="MovieCard__infoLabel MovieCard__infoLabel--right">Rate</span>
-                                <span className="MovieCard__infoText MovieCard__infoText--right">{this.state.movieData.vote_average}</span>
+                                <span className="MovieCard__infoText MovieCard__infoText--right">{this.state.movieData.vote_average}/10</span>
                             </div>
                         </div>
                         <div className="MovieCard__quote">{this.state.movieData.tagline}</div>

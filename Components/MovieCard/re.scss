@@ -1,0 +1,22 @@
+header
+    position: absolute;
+    left: 36%;
+    display: flex;
+    justify-content: space-between;
+    width: 63%;
+    margin-left: 1%;
+
+    wrapper 
+    position: relative;
+
+    image     
+    align-self: center;
+    order: 1;
+    height: 600px;
+    width: auto;
+
+    main 
+    order: 3;
+    /* justify-self: flex-end; */
+    align-self: flex-end;
+    margin-left: 2%;

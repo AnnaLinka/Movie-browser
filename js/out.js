@@ -110,6 +110,8 @@ var _Search = __webpack_require__(/*! ./../Search/Search.jsx */ "./Components/Se
 
 var _Search2 = _interopRequireDefault(_Search);
 
+__webpack_require__(/*! ./App.scss */ "./Components/App/App.scss");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -132,7 +134,7 @@ var App = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'App__wrapper' },
                 _react2.default.createElement(_Search2.default, null)
             );
         }
@@ -142,6 +144,36 @@ var App = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = App;
+
+/***/ }),
+
+/***/ "./Components/App/App.scss":
+/*!*********************************!*\
+  !*** ./Components/App/App.scss ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/cjs.js!../../node_modules/sass-loader/lib/loader.js!./App.scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./Components/App/App.scss");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
 
 /***/ }),
 
@@ -429,7 +461,8 @@ var MovieCard = function (_React$Component) {
                                 _react2.default.createElement(
                                     'span',
                                     { className: 'MovieCard__infoText MovieCard__infoText--right' },
-                                    this.state.movieData.vote_average
+                                    this.state.movieData.vote_average,
+                                    '/10'
                                 )
                             )
                         ),
@@ -604,7 +637,9 @@ var Search = function (_React$Component) {
         _this.close = function () {
             document.querySelector('.Search__input').focus();
             _this.setState({
-                text: ""
+                text: "",
+                moviesArray: []
+
             });
         };
 
@@ -631,7 +666,7 @@ var Search = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'Search__inputWrapper' },
-                        _react2.default.createElement('input', { className: 'Search__input', value: this.state.text, autoFocus: 'true', onChange: this.handle, onClick: this.focusSearch, type: 'text' }),
+                        _react2.default.createElement('input', { className: 'Search__input', placeholder: 'Search for movie title', value: this.state.text, autoFocus: 'true', onChange: this.handle, onClick: this.focusSearch, type: 'text' }),
                         _react2.default.createElement(
                             'figure',
                             { className: 'Search__closeIcon', onClick: this.close },
@@ -1744,6 +1779,21 @@ module.exports = factory;
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./Components/App/App.scss":
+/*!****************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./Components/App/App.scss ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, ".App__wrapper {\n  display: flex;\n  flex-direction: column; }\n", ""]);
+
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./Components/Discover/Discover.scss":
 /*!**************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./Components/Discover/Discover.scss ***!
@@ -1768,7 +1818,7 @@ exports.push([module.i, "/* Colors */\n.Discover__wrapper {\n  margin: 20px 0; }
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "/* Colors */\n.MovieCard__wrapper {\n  margin: 0 auto;\n  max-width: 90%; }\n\n.MovieCard__loaderWrapper {\n  display: flex;\n  justify-content: center;\n  align-items: center; }\n\n.MovieCard__loader {\n  width: 200px;\n  height: auto; }\n\n.MovieCard__header, .MovieCard__info {\n  display: flex;\n  justify-content: space-between;\n  padding: 15px 0; }\n\n.MovieCard__title {\n  text-transform: uppercase;\n  font-weight: 700;\n  font-size: 22px; }\n\n.MovieCard__year {\n  color: #4ecca3;\n  font-size: 20px; }\n\n.MovieCard__img {\n  max-width: 100%;\n  height: auto; }\n\n.MovieCard__infoData {\n  display: flex;\n  justify-content: space-between; }\n\n.MovieCard__infoBlock {\n  display: flex;\n  flex-direction: column; }\n\n.MovieCard__infoText {\n  color: #4ecca3;\n  font-weight: 700; }\n  .MovieCard__infoText--right {\n    text-align: right; }\n\n.MovieCard__infoLabel {\n  font-size: 12px;\n  font-weight: 300; }\n  .MovieCard__infoLabel--right {\n    text-align: right; }\n\n.MovieCard__quote {\n  color: #4ecca3;\n  font-weight: 300;\n  text-align: center;\n  font-style: italic;\n  margin: 30px 0; }\n\n.MovieCard__desc {\n  text-align: justify;\n  padding: 15px;\n  background-color: #393E46;\n  margin: 30px 0; }\n", ""]);
+exports.push([module.i, "/* Colors */\n.MovieCard__wrapper {\n  margin: 0 auto;\n  max-width: 90%;\n  display: flex;\n  flex-direction: column; }\n\n.MovieCard__loaderWrapper {\n  display: flex;\n  justify-content: center;\n  align-items: center; }\n\n.MovieCard__loader {\n  width: 200px;\n  height: auto; }\n\n.MovieCard__header, .MovieCard__info {\n  display: flex;\n  justify-content: space-between;\n  padding: 15px 0; }\n\n.MovieCard__title {\n  text-transform: uppercase;\n  font-weight: 700;\n  font-size: 22px; }\n\n.MovieCard__year {\n  color: #4ecca3;\n  font-size: 20px; }\n\n.MovieCard__img {\n  width: 500px;\n  max-width: 100%;\n  height: auto;\n  align-self: center; }\n\n.MovieCard__infoData {\n  display: flex;\n  justify-content: space-between; }\n\n.MovieCard__infoBlock {\n  display: flex;\n  flex-direction: column; }\n\n.MovieCard__infoText {\n  font-weight: 700; }\n  .MovieCard__infoText--right {\n    text-align: right; }\n\n.MovieCard__infoLabel {\n  font-size: 12px;\n  font-weight: 300;\n  color: #4ecca3; }\n  .MovieCard__infoLabel--right {\n    text-align: right; }\n\n.MovieCard__quote {\n  color: #4ecca3;\n  font-weight: 300;\n  text-align: center;\n  font-style: italic;\n  margin: 30px 0; }\n\n.MovieCard__desc {\n  text-align: justify;\n  padding: 15px;\n  background-color: #393E46;\n  margin: 30px 0; }\n\n@media all and (min-width: 1024px) {\n  .MovieCard__wrapper {\n    position: relative;\n    flex-direction: row;\n    max-width: 850px;\n    background-color: #393E46;\n    padding-right: 20px; }\n  .MovieCard__header {\n    position: absolute;\n    left: 420px;\n    display: flex;\n    justify-content: space-between;\n    width: 420px; }\n  .MovieCard__img {\n    align-self: center;\n    order: 1;\n    height: 600px;\n    width: auto; }\n  .MovieCard__main {\n    order: 3;\n    align-self: flex-end;\n    margin-left: 2%; }\n  .MovieCard__desc {\n    padding: 0; } }\n", ""]);
 
 
 
@@ -1783,7 +1833,7 @@ exports.push([module.i, "/* Colors */\n.MovieCard__wrapper {\n  margin: 0 auto;\
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "/* Colors */\n.Search__wrapper {\n  position: relative;\n  display: flex;\n  justify-content: center;\n  flex-direction: column; }\n\n.Search__inputWrapper {\n  display: flex;\n  position: relative; }\n\n.Search__input {\n  width: 500px;\n  max-width: 90%;\n  margin: 30px auto 10px;\n  padding: 10px;\n  font-size: 20px;\n  text-transform: uppercase;\n  background-color: #232931;\n  color: #eeeeee;\n  border: 0;\n  border-bottom: 2px solid #4ecca3; }\n\n.Search__input:focus {\n  outline: none; }\n\n.Search__closeIcon {\n  position: absolute;\n  right: -20px;\n  cursor: pointer;\n  z-index: 10;\n  bottom: -10px;\n  padding: 10px;\n  font-size: 20px; }\n\n.Search__list {\n  position: absolute;\n  top: 75px;\n  width: 500px;\n  font-size: 18px;\n  background-color: #393E46;\n  padding: 10px;\n  align-self: center;\n  z-index: 10; }\n\n.Search__elem {\n  padding: 0 0 15px;\n  display: flex;\n  justify-content: space-between;\n  cursor: pointer; }\n\n.Search__movieTitle {\n  color: #eeeeee;\n  align-self: center;\n  flex-grow: 1; }\n\n.Search__prodYear {\n  color: #4ecca3;\n  align-self: center; }\n\n.Search__movieImg {\n  padding-right: 20px;\n  width: 80px;\n  height: 100%; }\n", ""]);
+exports.push([module.i, "/* Colors */\n.Search__wrapper {\n  position: relative;\n  display: flex;\n  justify-content: center;\n  flex-direction: column; }\n\n.Search__inputWrapper {\n  display: flex;\n  position: relative; }\n\n.Search__input {\n  width: 400px;\n  max-width: 90%;\n  margin: 30px auto 10px;\n  padding: 10px;\n  font-size: 20px;\n  text-transform: uppercase;\n  background-color: #232931;\n  color: #eeeeee;\n  border: 0;\n  border-bottom: 2px solid #4ecca3; }\n  .Search__input:focus {\n    outline: none; }\n  .Search__input::placeholder {\n    text-transform: lowercase;\n    font-weight: 300;\n    font-size: 18px;\n    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }\n\n.Search__closeIcon {\n  position: absolute;\n  right: -20px;\n  cursor: pointer;\n  z-index: 10;\n  bottom: -10px;\n  padding: 10px;\n  font-size: 20px; }\n\n.Search__list {\n  position: absolute;\n  top: 75px;\n  width: 400px;\n  font-size: 18px;\n  background-color: #393E46;\n  padding: 0 10px;\n  align-self: center;\n  z-index: 10;\n  max-width: 90%; }\n\n.Search__elem {\n  padding: 0 0 15px;\n  display: flex;\n  justify-content: space-between;\n  cursor: pointer; }\n  .Search__elem:first-of-type {\n    padding-top: 15px; }\n\n.Search__movieTitle {\n  color: #eeeeee;\n  align-self: center;\n  flex-grow: 1; }\n\n.Search__prodYear {\n  color: #4ecca3;\n  align-self: center; }\n\n.Search__movieImg {\n  padding-right: 20px;\n  width: 80px;\n  height: 100%; }\n\n@media all and (min-width: 1024px) {\n  .Search__input {\n    max-width: 100%; }\n  .Search__wrapper {\n    justify-content: flex-end;\n    flex-direction: row;\n    margin-bottom: 30px;\n    margin-right: 10%; } }\n", ""]);
 
 
 

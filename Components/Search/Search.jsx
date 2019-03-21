@@ -43,7 +43,9 @@ class Search extends React.Component {
     close = () => {
         document.querySelector('.Search__input').focus();
         this.setState({
-            text: ""
+            text: "",
+            moviesArray: [],
+
         })
     }
 
@@ -52,7 +54,7 @@ class Search extends React.Component {
             <div className="Search">
                 <div className="Search__wrapper">
                     <div className="Search__inputWrapper">
-                        <input className="Search__input" value={this.state.text} autoFocus="true" onChange={this.handle} onClick={this.focusSearch} type="text"/>
+                        <input className="Search__input" placeholder="Search for movie title" value={this.state.text} autoFocus="true" onChange={this.handle} onClick={this.focusSearch} type="text"/>
                         <figure  className="Search__closeIcon" onClick={this.close}>X</figure>
                     </div>
                         <ul className="Search__list" style={{display:this.state.listVisibility}}>
