@@ -1,14 +1,15 @@
 import React from 'react';
-import './Discover.scss'
+import '../Discover/Discover.scss'
 import Slider from "react-slick";
 import MovieCard from '../MovieCard/MovieCard.jsx';
 
-class Discover extends React.Component {
+class New extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             discoverMovies: [],
-            movieId: ""
+            movieId: "",
+            errorInfo: ""
         }
     }
 
@@ -20,8 +21,8 @@ class Discover extends React.Component {
     }
 
     componentDidMount() {
-        const apiKey = "108459b0ab9ad26f10f6e031ebb6ac28";    
-        const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
+        const apiKey = "108459b0ab9ad26f10f6e031ebb6ac28";  
+        const url =`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=release_date.asc&include_adult=false&include_video=false&page=1&primary_release_date.gte=2019-03-30&year=2019`
         
         fetch(url)
         .then(response => response.json())
@@ -32,6 +33,9 @@ class Discover extends React.Component {
             })
         }).catch(() => {
             console.log("error");
+            this.setState ({
+                errorInfo: "We can't find the movie you're looking for :("
+            })
         });        
     }
 
@@ -83,11 +87,10 @@ class Discover extends React.Component {
               }
             ]
           };
-
         return (
             <div>
-                <div className="Discover__wrapper">
-                    <p className="Discover__title">Most Popular</p>
+                <div className="Discover__wrapper New__wrapper">
+                    <p className="Discover__title">Coming soon</p>
                     <div className="Discover__slider">
                         <Slider {...settings}>
                             {this.state.discoverMovies.map((elem, index) => {
@@ -106,4 +109,4 @@ class Discover extends React.Component {
       }
 }   
 
-export default Discover;
+export default New;

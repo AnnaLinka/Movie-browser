@@ -203,6 +203,10 @@ var _reactSlick = __webpack_require__(/*! react-slick */ "./node_modules/react-s
 
 var _reactSlick2 = _interopRequireDefault(_reactSlick);
 
+var _MovieCard = __webpack_require__(/*! ../MovieCard/MovieCard.jsx */ "./Components/MovieCard/MovieCard.jsx");
+
+var _MovieCard2 = _interopRequireDefault(_MovieCard);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -223,13 +227,17 @@ var Discover = function (_React$Component) {
             console.log("showMovie fun " + id);
             _this.setState({
                 movieId: id
-                // listVisibility: "none"
-                // moviesArray: []
             });
         };
 
+        _this.hideSlider = function () {
+            document.querySelector('.Discover__wrapper').style.display = "none";
+            document.querySelector('.New__wrapper').style.display = "none";
+        };
+
         _this.state = {
-            discoverMovies: []
+            discoverMovies: [],
+            movieId: ""
         };
         return _this;
     }
@@ -260,36 +268,72 @@ var Discover = function (_React$Component) {
 
             var settings = {
                 infinite: true,
-                speed: 500,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                centerMode: true
+                autoplay: true,
+                // autoplaySpeed: 2000,
+                responsive: [{
+                    breakpoint: 2048,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        speed: 2500,
+                        autoplaySpeed: 2500
+                    }
+                }, {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        speed: 2500,
+                        autoplaySpeed: 2500
+                    }
+                }, {
+                    breakpoint: 769,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        speed: 2500
+                    }
+                }, {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        speed: 1500,
+                        centerMode: true
+                    }
+                }]
             };
+
             return _react2.default.createElement(
                 'div',
-                { className: 'Discover__wrapper' },
-                _react2.default.createElement(
-                    'p',
-                    { className: 'Discover__title' },
-                    'Discover'
-                ),
+                null,
                 _react2.default.createElement(
                     'div',
-                    { className: 'Discover__slider' },
+                    { className: 'Discover__wrapper' },
                     _react2.default.createElement(
-                        _reactSlick2.default,
-                        settings,
-                        this.state.discoverMovies.map(function (elem, index) {
-                            return _react2.default.createElement(
-                                'div',
-                                { className: 'Discover__element', key: elem.id, onClick: function onClick() {
-                                        return _this3.showMovie(elem.id);
-                                    } },
-                                _react2.default.createElement('img', { className: 'Discover__movieImg', src: 'https://image.tmdb.org/t/p/w500' + elem.poster_path })
-                            );
-                        })
+                        'p',
+                        { className: 'Discover__title' },
+                        'Most Popular'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'Discover__slider' },
+                        _react2.default.createElement(
+                            _reactSlick2.default,
+                            settings,
+                            this.state.discoverMovies.map(function (elem, index) {
+                                return _react2.default.createElement(
+                                    'div',
+                                    { className: 'Discover__element', key: elem.id, onClick: function onClick() {
+                                            return _this3.showMovie(elem.id);
+                                        } },
+                                    _react2.default.createElement('img', { onClick: _this3.hideSlider, className: 'Discover__movieImg', src: 'https://image.tmdb.org/t/p/w500' + elem.poster_path })
+                                );
+                            })
+                        )
                     )
-                )
+                ),
+                this.state.movieId !== "" ? _react2.default.createElement(_MovieCard2.default, { id: this.state.movieId }) : _react2.default.createElement('div', null)
             );
         }
     }]);
@@ -409,7 +453,7 @@ var MovieCard = function (_React$Component) {
                 return _react2.default.createElement(
                     'div',
                     { className: 'MovieCard__loaderWrapper' },
-                    _react2.default.createElement('img', { className: 'MovieCard__loader', src: '../../assets/logo TMDB.svg', alt: '' })
+                    _react2.default.createElement('img', { className: 'MovieCard__loader', src: '../../assets/logo spinner.gif', alt: '' })
                 );
             } else {
                 return _react2.default.createElement(
@@ -447,7 +491,7 @@ var MovieCard = function (_React$Component) {
                                 _react2.default.createElement(
                                     'span',
                                     { className: 'MovieCard__infoText' },
-                                    this.state.movieData.genres[0].name
+                                    this.state.movieData.genres[0].name != undefined ? this.state.movieData.genres[0].name : this.state.movieData.genre_ids[0]
                                 )
                             ),
                             _react2.default.createElement(
@@ -499,7 +543,7 @@ var MovieCard = function (_React$Component) {
                                 _react2.default.createElement(
                                     'span',
                                     { className: 'MovieCard__infoText MovieCard__infoText--right' },
-                                    this.state.movieData.production_countries[0].name
+                                    this.state.movieData.production_countries[0].name != undefined ? this.state.movieData.production_countries[0].name : "n/a"
                                 )
                             )
                         ),
@@ -562,6 +606,177 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./Components/New/New.jsx":
+/*!********************************!*\
+  !*** ./Components/New/New.jsx ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/react.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(/*! ../Discover/Discover.scss */ "./Components/Discover/Discover.scss");
+
+var _reactSlick = __webpack_require__(/*! react-slick */ "./node_modules/react-slick/lib/index.js");
+
+var _reactSlick2 = _interopRequireDefault(_reactSlick);
+
+var _MovieCard = __webpack_require__(/*! ../MovieCard/MovieCard.jsx */ "./Components/MovieCard/MovieCard.jsx");
+
+var _MovieCard2 = _interopRequireDefault(_MovieCard);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var New = function (_React$Component) {
+    _inherits(New, _React$Component);
+
+    function New(props) {
+        _classCallCheck(this, New);
+
+        var _this = _possibleConstructorReturn(this, (New.__proto__ || Object.getPrototypeOf(New)).call(this, props));
+
+        _this.showMovie = function (id) {
+            console.log("showMovie fun " + id);
+            _this.setState({
+                movieId: id
+            });
+        };
+
+        _this.hideSlider = function () {
+            document.querySelector('.Discover__wrapper').style.display = "none";
+            document.querySelector('.New__wrapper').style.display = "none";
+        };
+
+        _this.state = {
+            discoverMovies: [],
+            movieId: "",
+            errorInfo: ""
+        };
+        return _this;
+    }
+
+    _createClass(New, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            var apiKey = "108459b0ab9ad26f10f6e031ebb6ac28";
+            var url = 'https://api.themoviedb.org/3/discover/movie?api_key=' + apiKey + '&language=en-US&sort_by=release_date.asc&include_adult=false&include_video=false&page=1&primary_release_date.gte=2019-03-30&year=2019';
+
+            fetch(url).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log(data.results);
+                _this2.setState({
+                    discoverMovies: data.results
+                });
+            }).catch(function () {
+                console.log("error");
+                _this2.setState({
+                    errorInfo: "We can't find the movie you're looking for :("
+                });
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this3 = this;
+
+            var settings = {
+                infinite: true,
+                autoplay: true,
+                // autoplaySpeed: 2000,
+                responsive: [{
+                    breakpoint: 2048,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        speed: 2500,
+                        autoplaySpeed: 2500
+                    }
+                }, {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        speed: 2500,
+                        autoplaySpeed: 2500
+                    }
+                }, {
+                    breakpoint: 769,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        speed: 2500
+                    }
+                }, {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        speed: 1500,
+                        centerMode: true
+                    }
+                }]
+            };
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'div',
+                    { className: 'Discover__wrapper New__wrapper' },
+                    _react2.default.createElement(
+                        'p',
+                        { className: 'Discover__title' },
+                        'Coming soon'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'Discover__slider' },
+                        _react2.default.createElement(
+                            _reactSlick2.default,
+                            settings,
+                            this.state.discoverMovies.map(function (elem, index) {
+                                return _react2.default.createElement(
+                                    'div',
+                                    { className: 'Discover__element', key: elem.id, onClick: function onClick() {
+                                            return _this3.showMovie(elem.id);
+                                        } },
+                                    _react2.default.createElement('img', { onClick: _this3.hideSlider, className: 'Discover__movieImg', src: 'https://image.tmdb.org/t/p/w500' + elem.poster_path })
+                                );
+                            })
+                        )
+                    )
+                ),
+                this.state.movieId !== "" ? _react2.default.createElement(_MovieCard2.default, { id: this.state.movieId }) : _react2.default.createElement('div', null)
+            );
+        }
+    }]);
+
+    return New;
+}(_react2.default.Component);
+
+exports.default = New;
+
+/***/ }),
+
 /***/ "./Components/Search/Search.jsx":
 /*!**************************************!*\
   !*** ./Components/Search/Search.jsx ***!
@@ -592,6 +807,10 @@ var _Discover = __webpack_require__(/*! ../Discover/Discover.jsx */ "./Component
 
 var _Discover2 = _interopRequireDefault(_Discover);
 
+var _New = __webpack_require__(/*! ../New/New.jsx */ "./Components/New/New.jsx");
+
+var _New2 = _interopRequireDefault(_New);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -599,6 +818,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// import utils from '../../js/Utils.js';
 
 var Search = function (_React$Component) {
     _inherits(Search, _React$Component);
@@ -618,12 +839,22 @@ var Search = function (_React$Component) {
             var movieTitle = _this.state.text;
             var apiKey = "108459b0ab9ad26f10f6e031ebb6ac28";
             var url = 'https://api.themoviedb.org/3/search/movie?api_key=' + apiKey + '&language=en-US&query=' + movieTitle + '&page=1&include_adult=false';
-            fetch(url).then(function (response) {
+
+            function handleErrors(response) {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response;
+            }
+
+            fetch(url).then(handleErrors).then(function (response) {
                 return response.json();
             }).then(function (data) {
                 _this.setState({
                     moviesArray: data.results
                 });
+            }).catch(function () {
+                console.log("error");
             });
         };
 
@@ -639,9 +870,10 @@ var Search = function (_React$Component) {
             _this.setState({
                 text: "",
                 moviesArray: []
-
             });
         };
+
+        _this.return = function () {};
 
         _this.state = {
             text: "",
@@ -666,14 +898,14 @@ var Search = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'Search__inputWrapper' },
-                        _react2.default.createElement('input', { className: 'Search__input', placeholder: 'Search for movie title', value: this.state.text, autoFocus: 'true', onChange: this.handle, onClick: this.focusSearch, type: 'text' }),
+                        _react2.default.createElement('input', { className: 'Search__input', placeholder: 'Search for movie title', value: this.state.text, autoFocus: 'true', onChange: this.handle, type: 'text' }),
                         _react2.default.createElement(
                             'figure',
                             { className: 'Search__closeIcon', onClick: this.close },
                             'X'
                         )
                     ),
-                    _react2.default.createElement(
+                    this.state.moviesArray !== undefined ? _react2.default.createElement(
                         'ul',
                         { className: 'Search__list', style: { display: this.state.listVisibility } },
                         this.state.moviesArray.map(function (elem, index) {
@@ -697,9 +929,15 @@ var Search = function (_React$Component) {
                                 )
                             );
                         })
-                    )
+                    ) : _react2.default.createElement('div', null)
                 ),
-                this.state.movieId != null ? _react2.default.createElement(_MovieCard2.default, { id: this.state.movieId }) : _react2.default.createElement(_Discover2.default, null)
+                this.state.movieId != null ? _react2.default.createElement(_MovieCard2.default, { id: this.state.movieId }) : _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(_Discover2.default, null),
+                    ' ',
+                    _react2.default.createElement(_New2.default, null)
+                )
             );
         }
     }]);
@@ -767,13 +1005,6 @@ __webpack_require__(/*! ./scss/styles.scss */ "./scss/styles.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import {
-//   HashRouter,
-//   Route,
-//   Link,
-//   Switch,
-//   NavLink,
-// } from 'react-router-dom';
 document.addEventListener('DOMContentLoaded', function () {
 
     _reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('app'));
@@ -1803,7 +2034,7 @@ exports.push([module.i, ".App__wrapper {\n  display: flex;\n  flex-direction: co
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "/* Colors */\n.Discover__wrapper {\n  margin: 20px 0; }\n\n.Discover__title {\n  text-transform: uppercase;\n  color: #4ecca3;\n  font-weight: 700;\n  padding: 20px 0;\n  text-align: center;\n  font-size: 22px; }\n\n.Discover__element {\n  max-width: 300px;\n  margin: 0 auto; }\n\n.Discover__slider .slick-slide {\n  padding: 0 20px; }\n", ""]);
+exports.push([module.i, "/* Colors */\n.Discover__wrapper {\n  margin: 20px 0; }\n\n.Discover__title {\n  text-transform: uppercase;\n  color: #4ecca3;\n  font-weight: 700;\n  padding: 20px 0;\n  text-align: center;\n  font-size: 22px; }\n\n.Discover__element {\n  max-width: 300px;\n  margin: 0 auto;\n  cursor: pointer; }\n\n.Discover__slider .slick-slide {\n  padding: 0 20px; }\n\n.Discover__slider .slick-prev {\n  left: 5px; }\n\n.Discover__slider .slick-next {\n  right: 5px; }\n\n.Discover__slider .slick-prev,\n.Discover__slider .slick-next {\n  z-index: 5; }\n\n@media all and (min-width: 450px) {\n  .Discover__element {\n    max-width: 100%; }\n  .Discover__movieImg {\n    max-height: 500px; } }\n\n@media all and (min-width: 1024px) {\n  .Discover__movieImg {\n    max-height: 100%; } }\n", ""]);
 
 
 
@@ -1818,7 +2049,7 @@ exports.push([module.i, "/* Colors */\n.Discover__wrapper {\n  margin: 20px 0; }
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "/* Colors */\n.MovieCard__wrapper {\n  margin: 0 auto;\n  max-width: 90%;\n  display: flex;\n  flex-direction: column; }\n\n.MovieCard__loaderWrapper {\n  display: flex;\n  justify-content: center;\n  align-items: center; }\n\n.MovieCard__loader {\n  width: 200px;\n  height: auto; }\n\n.MovieCard__header, .MovieCard__info {\n  display: flex;\n  justify-content: space-between;\n  padding: 15px 0; }\n\n.MovieCard__title {\n  text-transform: uppercase;\n  font-weight: 700;\n  font-size: 22px; }\n\n.MovieCard__year {\n  color: #4ecca3;\n  font-size: 20px; }\n\n.MovieCard__img {\n  width: 500px;\n  max-width: 100%;\n  height: auto;\n  align-self: center; }\n\n.MovieCard__infoData {\n  display: flex;\n  justify-content: space-between; }\n\n.MovieCard__infoBlock {\n  display: flex;\n  flex-direction: column; }\n\n.MovieCard__infoText {\n  font-weight: 700; }\n  .MovieCard__infoText--right {\n    text-align: right; }\n\n.MovieCard__infoLabel {\n  font-size: 12px;\n  font-weight: 300;\n  color: #4ecca3; }\n  .MovieCard__infoLabel--right {\n    text-align: right; }\n\n.MovieCard__quote {\n  color: #4ecca3;\n  font-weight: 300;\n  text-align: center;\n  font-style: italic;\n  margin: 30px 0; }\n\n.MovieCard__desc {\n  text-align: justify;\n  padding: 15px;\n  background-color: #393E46;\n  margin: 30px 0; }\n\n@media all and (min-width: 1024px) {\n  .MovieCard__wrapper {\n    position: relative;\n    flex-direction: row;\n    max-width: 850px;\n    background-color: #393E46;\n    padding-right: 20px; }\n  .MovieCard__header {\n    position: absolute;\n    left: 420px;\n    display: flex;\n    justify-content: space-between;\n    width: 420px; }\n  .MovieCard__img {\n    align-self: center;\n    order: 1;\n    height: 600px;\n    width: auto; }\n  .MovieCard__main {\n    order: 3;\n    align-self: flex-end;\n    margin-left: 2%; }\n  .MovieCard__desc {\n    padding: 0; } }\n", ""]);
+exports.push([module.i, "/* Colors */\n.MovieCard__wrapper {\n  margin: 0 auto;\n  max-width: 90%;\n  display: flex;\n  flex-direction: column; }\n\n.MovieCard__loaderWrapper {\n  height: 400px;\n  display: flex;\n  justify-content: center;\n  align-items: center; }\n\n.MovieCard__header, .MovieCard__info {\n  display: flex;\n  justify-content: space-between;\n  padding: 15px 0; }\n\n.MovieCard__title {\n  text-transform: uppercase;\n  font-weight: 700;\n  font-size: 22px; }\n\n.MovieCard__year {\n  color: #4ecca3;\n  font-size: 20px; }\n\n.MovieCard__img {\n  width: 500px;\n  max-width: 100%;\n  height: auto;\n  align-self: center; }\n\n.MovieCard__infoData {\n  display: flex;\n  justify-content: space-between; }\n\n.MovieCard__infoBlock {\n  display: flex;\n  flex-direction: column; }\n\n.MovieCard__infoText {\n  font-weight: 700; }\n  .MovieCard__infoText--right {\n    text-align: right; }\n\n.MovieCard__infoLabel {\n  font-size: 12px;\n  font-weight: 300;\n  color: #4ecca3; }\n  .MovieCard__infoLabel--right {\n    text-align: right; }\n\n.MovieCard__quote {\n  color: #4ecca3;\n  font-weight: 300;\n  text-align: center;\n  font-style: italic;\n  margin: 30px 0; }\n\n.MovieCard__desc {\n  text-align: justify;\n  padding: 15px;\n  background-color: #393E46;\n  margin: 30px 0; }\n\n@media all and (min-width: 1024px) {\n  .MovieCard__wrapper {\n    position: relative;\n    flex-direction: row;\n    max-width: 850px;\n    background-color: #393E46;\n    padding-right: 20px; }\n  .MovieCard__header {\n    position: absolute;\n    left: 420px;\n    display: flex;\n    justify-content: space-between;\n    width: 420px; }\n  .MovieCard__img {\n    align-self: center;\n    order: 1;\n    height: 600px;\n    width: auto; }\n  .MovieCard__main {\n    order: 3;\n    align-self: flex-end;\n    margin-left: 2%; }\n  .MovieCard__desc {\n    padding: 0;\n    padding-top: 5px; }\n  .MovieCard__title {\n    font-size: 26px;\n    font-weight: 500; }\n  .MovieCard__year {\n    font-size: 30px; }\n  .MovieCard__infoText {\n    font-size: 20px; }\n  .MovieCard__infoLabel {\n    font-size: 16px; }\n  .MovieCard__quote, .MovieCard__desc {\n    font-size: 16px; }\n  .MovieCard__quote {\n    margin: 20px 0; } }\n", ""]);
 
 
 

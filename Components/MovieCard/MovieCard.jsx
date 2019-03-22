@@ -42,7 +42,7 @@ class MovieCard extends React.Component {
     render() {
         if (this.state.movieData == null) {
             return (
-                <div className="MovieCard__loaderWrapper"><img className="MovieCard__loader" src="../../assets/logo TMDB.svg" alt=""/></div>
+                <div className="MovieCard__loaderWrapper"><img className="MovieCard__loader" src="../../assets/logo spinner.gif" alt=""/></div>
             )
         } else {
             return (
@@ -56,7 +56,7 @@ class MovieCard extends React.Component {
                         <div className="MovieCard__info">
                             <div className="MovieCard__infoBlock">
                                 <span className="MovieCard__infoLabel">Genre</span>
-                                <span className="MovieCard__infoText">{this.state.movieData.genres[0].name}</span>
+                                <span className="MovieCard__infoText">{this.state.movieData.genres[0].name != undefined ? this.state.movieData.genres[0].name : this.state.movieData.genre_ids[0] }</span>
                             </div>
                             <div className="MovieCard__infoBlock">
                                 <span className="MovieCard__infoLabel MovieCard__infoLabel--right">Rate</span>
@@ -72,7 +72,7 @@ class MovieCard extends React.Component {
                             </div>
                             <div className="MovieCard__infoBlock">
                                 <span className="MovieCard__infoLabel MovieCard__infoLabel--right">Production</span>
-                                <span className="MovieCard__infoText MovieCard__infoText--right">{this.state.movieData.production_countries[0].name}</span>
+                                <span className="MovieCard__infoText MovieCard__infoText--right">{this.state.movieData.production_countries[0].name != undefined ? this.state.movieData.production_countries[0].name : "n/a"}</span> 
                             </div>
                         </div>                        
                         <div className="MovieCard__desc">
